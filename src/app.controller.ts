@@ -1,32 +1,31 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+// import { Controller, Get } from '@nestjs/common';
+// import { AppService } from './app.service';
 
-@Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+// @Controller()
+// export class AppController {
+//   constructor(private readonly appService: AppService) {}
 
-  @Get('/')
-  async getHello(): Promise<string> {
-    return this.appService.getHello();
+//   @Get('/')
+//   async getHello(): Promise<string> {
+//     return this.appService.getHello();
+//   }
+// }
+
+import { Controller, Get, Param } from '@nestjs/common';
+import {HttpService} from '@nestjs/axios'
+import { Observable } from 'rxjs';
+
+@Controller('balances')
+export class BalancesController {
+  constructor(private httpService: HttpService) {}
+
+  @Get(':address')
+  getBalances(@Param('address') address: string): Observable<any> {
+    const url = 'https://api.covalenthq.com/v1/1/address/${address}/balances_v2/?key=ckey_5e351cddf1284d22ae113a863fd';
+    return this.httpService.get(url);
   }
 }
 
-// import { AppService } from './app.service';
-// import { AxiosResponse } from 'axios';
-// import {HttpService} from '@nestjs/axios'
-// import { Controller, Get, Param} from '@nestjs/common';
-// import { Observable } from 'rxjs';
-
-// @Controller('balance')
-// export class BalanceController {
-//   constructor(private httpService: HttpService) {}
-
-//   @Get(':id')
-//   getBalances(@Param('id') id: string): Observable<any> {
-//     const url = 'https://api.covalenthq.com/v1/1/address/0x52114fb7396dbe19096ffa343d18830f5d77b6c6/balances_v2/?key=ckey_5e351cddf1284d22ae113a863fd';
-//     return this.httpService.get(url);
-//   }
-// }
 
 // import { Controller, Get, HttpService } from '@nestjs/common';
 // import { Observable } from 'rxjs';

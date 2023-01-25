@@ -6,16 +6,14 @@ import { HttpModule } from '@nestjs/axios';
 
 
 @Module({
-  imports: [SharedModule,HttpModule.register(baseURL: 'api.openweathermap.org/data/2.5/weather',
-  params: {
-    appid: process.env.OPEN_WEATHER_KEY,
-  },
-}),
-],
+  imports: [SharedModule,HttpModule],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
+
+
+
 
 // import { Module } from '@nestjs/common';
 // import { WatchlistController } from './watchlist.controller';
